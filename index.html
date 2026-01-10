@@ -223,12 +223,23 @@
             background: var(--neon-cyan);
             color: var(--bg-primary);
             border-color: var(--neon-cyan);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px var(--border-glow);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--border-glow), 0 0 30px var(--border-glow);
+            }
         }
 
         .btn-primary:hover, .btn-primary:focus {
             box-shadow: 0 0 25px var(--border-glow);
             transform: translateY(-2px);
             outline: none;
+            animation: none;
         }
 
         .btn-secondary {
@@ -276,6 +287,23 @@
             border: 2px solid transparent;
             transition: all 0.3s ease;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .highlight-card:hover::before {
+            left: 100%;
         }
 
         .highlight-card:hover {
@@ -288,6 +316,22 @@
             color: var(--neon-cyan);
             margin-bottom: 1rem;
             font-size: 1.5rem;
+        }
+
+        .highlight-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         /* Pricing */
@@ -303,6 +347,27 @@
             border-radius: 1rem;
             border: 2px solid var(--neon-purple);
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.3);
+            border-color: var(--neon-cyan);
+        }
+
+        .pricing-card::after {
+            content: '⭐';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .pricing-card:hover::after {
+            opacity: 1;
         }
 
         .pricing-card h3 {
@@ -350,6 +415,15 @@
             margin-bottom: 1rem;
             border-radius: 0.5rem;
             border-left: 3px solid var(--neon-teal);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: rgba(20, 184, 166, 0.1);
+            border-left-width: 8px;
+            padding-left: 1.5rem;
+            box-shadow: 0 5px 15px rgba(20, 184, 166, 0.2);
         }
 
         /* Gallery */
@@ -370,11 +444,55 @@
             font-weight: bold;
             transition: all 0.3s ease;
             cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item.loading {
+            background: linear-gradient(90deg, var(--bg-secondary) 25%, rgba(20, 184, 166, 0.2) 50%, var(--bg-secondary) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
         }
 
         .gallery-item:hover {
             box-shadow: 0 0 30px var(--border-glow);
-            transform: scale(1.05);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 1rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
         }
 
         /* Location */
@@ -589,18 +707,22 @@
                 <h2>Pengalaman Gaming & Chill Terbaik</h2>
                 <div class="highlights-grid">
                     <div class="highlight-card">
+                        <div class="icon">🎮</div>
                         <h3>Konsol Next-Gen</h3>
                         <p>PS4 dan PS3 terbaru dengan game-game populer dan fitur multiplayer buat pengalaman gaming yang epic!</p>
                     </div>
                     <div class="highlight-card">
+                        <div class="icon">💻</div>
                         <h3>PC Gaming Spec Dewa</h3>
                         <p>PC gaming dengan hardware premium, cocok banget buat competitive gaming dan game-game PC terbaru.</p>
                     </div>
                     <div class="highlight-card">
+                        <div class="icon">🍕</div>
                         <h3>Cemilan & Minuman</h3>
                         <p>Makanan seger, minuman dingin, dan bahan bakar gaming buat jaga energi selama main game kesukaan!</p>
                     </div>
                     <div class="highlight-card">
+                        <div class="icon">🎪</div>
                         <h3>Tempat Nongkrong Asik</h3>
                         <p>Area duduk yang nyaman dan suasana santai, perfect buat hang out bareng teman-teman.</p>
                     </div>
@@ -699,12 +821,30 @@
             <div class="container">
                 <h2>Galeri Gaming</h2>
                 <div class="gallery-grid">
-                    <div class="gallery-item">Setup Gaming #1</div>
-                    <div class="gallery-item">Station PS4</div>
-                    <div class="gallery-item">Area PC Gaming</div>
-                    <div class="gallery-item">Area Nongkrong</div>
-                    <div class="gallery-item">Makanan & Minuman</div>
-                    <div class="gallery-item">Arena Tournament</div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=500&h=500&fit=crop" alt="Gaming setup with RGB lights" loading="lazy">
+                        <div class="overlay">Setup Gaming Premium</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&h=500&fit=crop" alt="PlayStation console" loading="lazy">
+                        <div class="overlay">Station PS4 & PS3</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=500&h=500&fit=crop" alt="PC Gaming setup" loading="lazy">
+                        <div class="overlay">PC Gaming High-End</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&h=500&fit=crop" alt="Gaming lounge area" loading="lazy">
+                        <div class="overlay">Area Nongkrong Nyaman</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&h=500&fit=crop" alt="Food and drinks" loading="lazy">
+                        <div class="overlay">Makanan & Minuman Fresh</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500&h=500&fit=crop" alt="Gaming tournament" loading="lazy">
+                        <div class="overlay">Arena Tournament</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -862,6 +1002,47 @@
             if (scrolled < hero.offsetHeight) {
                 hero.style.transform = `translateY(${rate}px)`;
             }
+        });
+
+        // Image loading effect
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.classList.add('loading');
+            const img = item.querySelector('img');
+            
+            if (img) {
+                img.addEventListener('load', () => {
+                    item.classList.remove('loading');
+                });
+                
+                // If image is already cached
+                if (img.complete) {
+                    item.classList.remove('loading');
+                }
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for fade-in effect
+        document.querySelectorAll('.highlight-card, .pricing-card, .menu-section, .info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
