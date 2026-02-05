@@ -396,39 +396,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Menu */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .menu-section h3 {
-            color: var(--neon-teal);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            background: var(--bg-secondary);
-            margin-bottom: 1rem;
-            border-radius: 0.5rem;
-            border-left: 3px solid var(--neon-teal);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .menu-item:hover {
-            background: rgba(20, 184, 166, 0.1);
-            border-left-width: 8px;
-            padding-left: 1.5rem;
-            box-shadow: 0 5px 15px rgba(20, 184, 166, 0.2);
-        }
-
         /* Gallery */
         .gallery-grid {
             display: grid;
@@ -987,7 +954,7 @@
         }, observerOptions);
 
         // Observe all cards for fade-in effect
-        document.querySelectorAll('.highlight-card, .pricing-card, .menu-section, .info-card').forEach(el => {
+        document.querySelectorAll('.highlight-card, .pricing-card, .info-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
